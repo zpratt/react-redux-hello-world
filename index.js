@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {AppContainer} from './src/app-container.js';
 
 const appEl = document.getElementById('app');
 
-ReactDOM.render(<p>{'hello world'}</p>, appEl);
+ReactDOM.render(<AppContainer />, appEl);
