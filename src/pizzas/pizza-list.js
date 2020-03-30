@@ -1,24 +1,38 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {loadPizzas} from './action-creators';
 
-const PizzaList = ({pizzas}) => {
-    const pizzasChildren = pizzas.map((pizza, index) => {
+class PizzaList extends Component {
+    componentDidMount() {
+        this.props.loadPizzas();
+    }
+
+    render() {
+        const {pizzas} = this.props;
+        const pizzasChildren = pizzas.map((pizza, index) => {
+            return (
+                <li key={index}>
+                    {pizza}
+                </li>
+            );
+        });
+
         return (
-            <li key={index}>
-                {pizza}
-            </li>
+            <ul>
+                {pizzasChildren}
+            </ul>
         );
-    });
-
-    return (
-        <ul>
-            {pizzasChildren}
-        </ul>
-    );
-};
+    }
+}
 
 const mapStateToProps = (state) => {
     return state.pizzas;
 };
 
-export default connect(mapStateToProps)(PizzaList);
+const mapDispatch = (dispatch) => {
+    return {
+        loadPizzas: () => (dispatch(loadPizzas()))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatch)(PizzaList);
