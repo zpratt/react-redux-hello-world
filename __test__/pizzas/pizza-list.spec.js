@@ -1,4 +1,4 @@
-const React = require("react");
+import React from 'react';
 import {Provider} from 'react-redux';
 
 const {render, cleanup} = require('@testing-library/react');
