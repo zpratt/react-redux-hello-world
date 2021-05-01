@@ -9,6 +9,10 @@ describe('Pizza Action Creators', () => {
         mockAdapter = new MockAdapter(axios);
     });
 
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
+
     it('should load pizzas from the server', async () => {
         const mockDispatch = jest.fn().mockName('dispatch');
         const someCollectionOfPizzas = ['bar', 'baz'];
