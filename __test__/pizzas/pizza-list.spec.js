@@ -1,7 +1,7 @@
 const React = require("react");
 import {Provider} from 'react-redux';
 
-const {render} = require('@testing-library/react');
+const {render, cleanup} = require('@testing-library/react');
 const actionCreators = require('../../src/pizzas/action-creators');
 import PizzaList from '../../src/pizzas/pizza-list';
 
@@ -28,6 +28,7 @@ function renderConnectedComponent(store) {
 describe('<PizzaList>', () => {
     afterEach(() => {
         jest.resetAllMocks();
+        cleanup();
     });
 
     it('should render a list of pizzas', () => {
