@@ -7,9 +7,9 @@ import PizzaList from '../../src/pizzas/pizza-list';
 
 jest.mock('../../src/pizzas/action-creators');
 
-function mockStoreWithState(givenPizzas) {
+function mockStoreWithState(givenPizzas, mockDispatch = jest.fn()) {
     return {
-        dispatch: jest.fn(),
+        dispatch: mockDispatch,
         getState: () => {
             return {
                 pizzas: {
@@ -48,10 +48,14 @@ describe('<PizzaList>', () => {
     });
 
     it('should load pizzas from server', () => {
-        const store = mockStoreWithState([]);
+        const mockDispatch = jest.fn().mockName('dispatch');
+        const store = mockStoreWithState([], mockDispatch);
+        const thunkOfAction = jest.fn();
+        actionCreators.loadPizzas.mockReturnValue(thunkOfAction)
 
         renderConnectedComponent(store);
 
         expect(actionCreators.loadPizzas).toHaveBeenCalledTimes(1);
+        expect(mockDispatch).toHaveBeenCalledWith(thunkOfAction);
     });
 });
